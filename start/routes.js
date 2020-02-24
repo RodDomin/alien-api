@@ -19,3 +19,18 @@ const Route = use('Route')
 Route.get('/', () => {
   return { message: 'Wellcome to venus api' }
 })
+
+Route.group('not authenticated routes', () => {
+  Route.post('/users', 'UserController.store')
+
+  Route.post('/session', 'SessionController.store')
+})
+
+Route.group('authtenticaded routes', () => {
+  Route.put('/users/:id', 'UserController.update')
+  Route.delete('/users/:id', 'UserController.destroy')
+  Route.get('/users/:id', 'UserController.show')
+  Route.get('/users', 'UserController.index')
+
+  Route.get('/session', 'SessionController.index')
+}).middleware(['auth'])
